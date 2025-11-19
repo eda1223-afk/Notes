@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Not Defterim</title>
+
+  <!-- İkonlar için -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --bg: #121212;
+      --card: #1e1e1e;
+      --accent: #00ff94;
+      --accent2: #ff0060;
+      --text: #ffffff;
+      --gray: #888;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 20px 10px 40px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 18px;
+      font-size: 2.2rem;
+      background: linear-gradient(90deg, #00ff94, #00b3ff, #ff0060);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .add-note {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 16px 16px 12px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.5);
+      margin-bottom: 16px;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .add-note-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .add-note-header span {
+      font-size: 0.95rem;
+      color: var(--gray);
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: var(--gray);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 90px;
+      max-height: 180px;
+      background: #252525;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      color: #ffffff;
+      font-size: 1rem;
+      resize: vertical;
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-clear {
+      background: transparent;
+      color: var(--gray);
+    }
+
+    .btn-save {
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+    }
+
+    .btn i {
+      font-size: 0.85rem;
+    }
+
+    .notes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 2px 6px;
+    }
+
+    .notes-header span {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .notes-header button {
+      background: transparent;
+      border: none;
+      color: var(--accent2);
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .notes-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .note-card {
+      background: #181818;
+      border-radius: 14px;
+      padding: 10px 12px 8px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .note-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .note-time {
+      font-size: 0.7rem;
+      color: var(--gray);
+    }
+
+    .note-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .icon-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: rgba(255,255,255,0.05);
+      color: var(--gray);
+    }
+
+    .icon-btn.edit {
+      color: var(--accent);
+    }
+
+    .icon-btn.delete {
+      color: var(--accent2);
+    }
+
+    .note-text {
+      font-size: 0.95rem;
+      line-height: 1.3;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <h1>Not Defterim</h1>
+    <p class="subtitle">Hızlı not al, hepsi telefonda kayıtlı kalsın.</p>
+
+    <div class="add-note">
+      <div class="add-note-header">
+        <span>Yeni not</span>
+        <span class="badge" id="status-badge">Kaydedilmedi</span>
+      </div>
+      <textarea id="note-input" placeholder="Bugün ne not almak istiyorsun?"></textarea>
+      <div class="actions">
+        <button class="btn btn-clear" id="btn-clear">
+          <i class="fa-solid fa-xmark"></i> Temizle
+        </button>
+        <button class="btn btn-save" id="btn-save">
+          <i class="fa-solid fa-floppy-disk"></i> Kaydet
+        </button>
+      </div>
+    </div>
+
+    <div class="notes-header">
+      <span>Notların</span>
+      <button id="btn-delete-all">
+        <i class="fa-solid fa-trash-can"></i> Hepsini sil
+      </button>
+    </div>
+
+    <div id="notes" class="notes-list"></div>
+    <p id="empty-text" class="empty" style="display:none;">
+      Henüz hiç not yok. Bir tane eklemeyi dene. 🙂
+    </p>
+  </div>
+
+  <script>
+    const input = document.getElementById("note-input");
+    const saveBtn = document.getElementById("btn-save");
+    const clearBtn = document.getElementById("btn-clear");
+    const deleteAllBtn = document.getElementById("btn-delete-all");
+    const notesContainer = document.getElementById("notes");
+    const emptyText = document.getElementById("empty-text");
+    const statusBadge = document.getElementById("status-badge");
+
+    let notes = [];
+    let editingIndex = null;
+
+    function loadNotes() {
+      const data = localStorage.getItem("notes-app");
+      notes = data ? JSON.parse(data) : [];
+      renderNotes();
+    }
+
+    function saveNotes() {
+      localStorage.setItem("notes-app", JSON.stringify(notes));
+    }
+
+    function formatDate(d) {
+      return (
+        d.toLocaleDateString("tr-TR") +
+        " • " +
+        d.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" })
+      );
+    }
+
+    function renderNotes() {
+      notesContainer.innerHTML = "";
+      if (notes.length === 0) {
+        emptyText.style.display = "block";
+        return;
+      }
+      emptyText.style.display = "none";
+
+      notes.forEach((note, index) => {
+        const card = document.createElement("div");
+        card.className = "note-card";
+
+        card.innerHTML = `
+          <div class="note-top">
+            <span class="note-time">${note.time}</span>
+            <div class="note-actions">
+              <button class="icon-btn edit" data-index="${index}">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="icon-btn delete" data-index="${index}">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <div class="note-text">${note.text.replace(/\n/g,"<br>")}</div>
+        `;
+
+        notesContainer.appendChild(card);
+      });
+
+      // butonlara event
+      document.querySelectorAll(".icon-btn.edit").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const i = btn.getAttribute("data-index");
+          startEdit(i);
+        });
+      });
+
+      document.querySelectorAll(".icon-btn.delete").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const i = btn.getAttribute("data-index");
+          deleteNote(i);
+        });
+      });
+    }
+
+    function startEdit(index) {
+      editingIndex = Number(index);
+      input.value = notes[editingIndex].text;
+      input.focus();
+      statusBadge.textContent = "Düzenleniyor";
+      statusBadge.style.color = "#ffd369";
+    }
+
+    function deleteNote(index) {
+      notes.splice(index, 1);
+      saveNotes();
+      renderNotes();
+      statusBadge.textContent = "Silindi";
+      statusBadge.style.color = "#ff0060";
+      setTimeout(resetBadge, 1200);
+    }
+
+    function resetBadge() {
+      statusBadge.textContent = "Kaydedilmedi";
+      statusBadge.style.color = "#888";
+    }
+
+    saveBtn.addEventListener("click", () => {
+      const text = input.value.trim();
+      if (!text) return;
+
+      if (editingIndex !== null) {
+        notes[editingIndex].text = text;
+        notes[editingIndex].time = formatDate(new Date());
+        editingIndex = null;
+      } else {
+        notes.unshift({
+          text,
+          time: formatDate(new Date())
+        });
+      }
+
+      input.value = "";
+      saveNotes();
+      renderNotes();
+      statusBadge.textContent = "Kaydedildi";
+      statusBadge.style.color = "#00ff94";
+      setTimeout(resetBadge, 1500);
+    });
+
+    clearBtn.addEventListener("click", () => {
+      input.value = "";
+      editingIndex = null;
+      resetBadge();
+    });
+
+    deleteAllBtn.addEventListener("click", () => {
+      if (!confirm("Tüm notları silmek istediğine emin misin?")) return;
+      notes = [];
+      saveNotes();
+      renderNotes();
+      statusBadge.textContent = "Tümü silindi";
+      statusBadge.style.color = "#ff0060";
+      setTimeout(resetBadge, 1500);
+    });
+
+    loadNotes();
+  </script>
+</body>
+</html>
