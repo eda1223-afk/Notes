@@ -1,13 +1,8 @@
-ders_notlarim/
-├── lib/
-│   ├── main.dart
-│   ├── models/ders.dart & konu.dart
-│   ├── services/hive_service.dart
-│   ├── screens/ders_listesi_screen.dart
-│   ├── screens/konular_screen.dart
-│   ├── screens/not_editor_screen.dart
-│   ├── widgets/ders_card.dart
-│   ├── widgets/konu_card.dart
-├── pubspec.yaml
-├── android/, ios/, web/ (tam çalışır)
-└── README.md (kurulum 10 saniye)
+Copyright (c) 2025 by Edanur (https://codepen.io/Edanur-the-animator/pen/zxqdxEx)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
